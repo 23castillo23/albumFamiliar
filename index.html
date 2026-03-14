@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Álbum Familiar | Nuestros Recuerdos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="bg-pattern"></div>
+  <div class="bg-gradient"></div>
+
+  <header class="header">
+    <h1 class="logo">Álbum Familiar</h1>
+    <p class="tagline">Nuestros momentos juntos</p>
+  </header>
+
+  <main class="main">
+    <section class="albums-section">
+      <h2 class="section-title">Nuestros álbumes</h2>
+      <div class="albums-grid" id="albumsGrid">
+        <!-- Los álbumes se generan con JavaScript -->
+      </div>
+    </section>
+
+    <section class="gallery-section" id="gallerySection">
+      <div class="gallery-header">
+        <button class="btn-back" id="btnBack" aria-label="Volver a álbumes">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Volver
+        </button>
+        <h2 class="gallery-title" id="galleryTitle">Fotos</h2>
+      </div>
+      <div class="photos-grid" id="photosGrid">
+        <!-- Las fotos se cargan con JavaScript -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Visor de foto en grande (lightbox) -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Ver foto">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar">&times;</button>
+    <button class="lightbox-prev" id="lightboxPrev" aria-label="Foto anterior">&lsaquo;</button>
+    <button class="lightbox-next" id="lightboxNext" aria-label="Siguiente foto">&rsaquo;</button>
+    <div class="lightbox-content">
+      <img src="" alt="" id="lightboxImg">
+      <p class="lightbox-caption" id="lightboxCaption"></p>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>Hecho con &hearts; para la familia</p>
+  </footer>
+
+  <script src="js/javaScrip.js"></script>
+</body>
+</html>
