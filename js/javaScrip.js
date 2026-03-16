@@ -1,143 +1,175 @@
 /**
- * Álbum Familiar - Nuestros Recuerdos
- * Puedes editar el array ALBUMS para agregar tus propios álbumes y fotos.
- * Para tus fotos reales: usa rutas como "fotos/cumple-maria/1.jpg" o URLs.
+ * =====================================================================
+ * ÁLBUM FAMILIAR — Cómo agregar un álbum nuevo:
+ *
+ * 1. En Cloudinary: sube tus fotos y asígnales un tag (ej: "navidad_2025")
+ * 2. Aquí abajo, agrega un objeto al array ALBUMS con:
+ *      - cloudinaryTag: el tag que usaste en Cloudinary
+ *      - photos: []  ← déjalo vacío, se llenará automáticamente
+ * 3. ¡Listo! No necesitas copiar ningún link.
+ *
+ * Ejemplo:
+ *   {
+ *     id: 'navidad-2025',
+ *     name: 'Navidad 2025',
+ *     icon: '🎄',
+ *     cloudinaryTag: 'navidad_2025',   ← tag asignado en Cloudinary
+ *     coverImage: '',                  ← se pone automáticamente
+ *     photos: [],                      ← se llena automáticamente
+ *   },
+ * =====================================================================
  */
 
-// Todas las imágenes ahora usan URLs de Cloudinary
+const CLOUDINARY_CLOUD = 'dwjzn6n0a'; // ← Tu cloud name de Cloudinary
+
 const ALBUMS = [
+  // --- Álbumes con fotos fijas (sin tag) ---
+
+  // --- Álbumes que se cargan automáticamente desde un tag de Cloudinary ---
+    // ¿Quieres agregar un álbum nuevo? Copia este bloque y personalízalo:
+  // {
+  //   id: 'mi-nuevo-album',
+  //   name: 'Mi Nuevo Álbum',
+  //   icon: '📸',
+  //   cloudinaryTag: 'mi_tag_en_cloudinary',
+  //   coverImage: '',
+  //   photos: [],
+  // },
   {
-    id: 'cumple-maria',
-    name: 'Cumpleaños de María',
-    coverImage: 'https://res.cloudinary.com/dwjzn6n0a/image/upload/v1773634100/KatDennings02_yoyhqd.jpg',
-    icon: '🎂',
-    photos: [
-      { src: 'https://res.cloudinary.com/dwjzn6n0a/image/upload/v1773634100/KatDennings02_yoyhqd.jpg', caption: 'Fiesta de cumpleaños' },
-      { src: 'https://res.cloudinary.com/dwjzn6n0a/image/upload/v1773634098/KatDennings01_exlgof.jpg', caption: 'Pastel' }      
-    ],
+    id: 'cerro',
+    name: 'cerroBorrego',
+    icon: '🎨',
+    cloudinaryTag: 'cerro_borrego', // ← tag en Cloudinary
+    coverImage: '',               // se asigna automáticamente
+    photos: [],                   // se llena automáticamente
   },
   {
-    id: 'xv-anos-carla',
-    name: 'XV Años de Carla',
-    coverImage: 'https://res.cloudinary.com/dwjzn6n0a/image/upload/v1773634122/WallFamosas02_mcpmma.jpg',
-    icon: '👑',
-    photos: [
-      { src: 'https://res.cloudinary.com/dwjzn6n0a/image/upload/v1773634122/WallFamosas02_mcpmma.jpg', caption: 'Fiesta XV años' },
-      { src: 'https://res.cloudinary.com/dwjzn6n0a/image/upload/v1773634119/WallFamosas01_aaqyk9.jpg', caption: 'Decoración' }      
-    ],
+    id: 'zoo',
+    name: 'zoo Mexico',
+    icon: '🎨',
+    cloudinaryTag: 'zoo_mex', // ← tag en Cloudinary
+    coverImage: '',               // se asigna automáticamente
+    photos: [],                   // se llena automáticamente
   },
   {
-    id: 'vacaciones-2024',
-    name: 'Vacaciones 2024',
-    coverImage: 'https://res.cloudinary.com/dwjzn6n0a/image/upload/v1773634146/WallFamosas02_jtypkt.jpg',
-    icon: '🏖️',
-    photos: [
-      { src: 'https://res.cloudinary.com/dwjzn6n0a/image/upload/v1773634146/WallFamosas02_jtypkt.jpg', caption: 'Playa en familia' },
-      { src: 'https://res.cloudinary.com/dwjzn6n0a/image/upload/v1773634143/WallFamosas01_mu31tf.jpg', caption: 'Atardecer' },      
-    ],
-  },
-  {
-    id: 'navidad-familia',
-    name: 'Navidad en familia',
-    coverImage: 'https://res.cloudinary.com/dwjzn6n0a/image/upload/v1773634169/WallFamosas02_gmvm7u.jpg',
-    icon: '🎄',
-    photos: [
-      { src: 'https://res.cloudinary.com/dwjzn6n0a/image/upload/v1773634169/WallFamosas02_gmvm7u.jpg', caption: 'Árbol navideño' },
-      { src: 'https://res.cloudinary.com/dwjzn6n0a/image/upload/v1773634166/WallFamosas01_br6erz.jpg', caption: 'Regalos' }      
-    ],
-  },
-  {
-    id: 'boda-hermanos',
-    name: 'Boda de los hermanos',
-    coverImage: 'https://res.cloudinary.com/dwjzn6n0a/image/upload/v1773634191/WallGirl02_pnvm6k.jpg',
-    icon: '💒',
-    photos: [
-      { src: 'https://res.cloudinary.com/dwjzn6n0a/image/upload/v1773634191/WallGirl02_pnvm6k.jpg', caption: 'Día de la boda' },
-      { src: 'https://res.cloudinary.com/dwjzn6n0a/image/upload/v1773634188/WallGirl01_ltkrbt.jpg', caption: 'Familia' },      
-    ],
+    id: 'Dibujos',
+    name: 'Mis dibujos',
+    icon: '🎨',
+    cloudinaryTag: 'mis_dibujos', // ← tag en Cloudinary
+    coverImage: '',               // se asigna automáticamente
+    photos: [],                   // se llena automáticamente
   },
 ];
 
-const albumsGrid = document.getElementById('albumsGrid');
-const gallerySection = document.getElementById('gallerySection');
-const albumsSection = document.querySelector('.albums-section');
-const photosGrid = document.getElementById('photosGrid');
-const galleryTitle = document.getElementById('galleryTitle');
-const btnBack = document.getElementById('btnBack');
-const lightbox = document.getElementById('lightbox');
-const lightboxImg = document.getElementById('lightboxImg');
+// =====================================================================
+// Carga automática de fotos desde Cloudinary usando tags
+// No necesitas modificar nada de aquí para abajo.
+// =====================================================================
+
+async function cargarAlbumsDesdeCloudinary() {
+  const albumsConTag = ALBUMS.filter(a => a.cloudinaryTag);
+  await Promise.allSettled(
+    albumsConTag.map(album => cargarFotosDeAlbum(album))
+  );
+  renderAlbums();
+}
+
+async function cargarFotosDeAlbum(album) {
+  const url = `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/list/${album.cloudinaryTag}.json`;
+  try {
+    const respuesta = await fetch(url);
+    if (!respuesta.ok) throw new Error(`HTTP ${respuesta.status}`);
+
+    const datos = await respuesta.json();
+    if (!datos.resources || datos.resources.length === 0) {
+      console.warn(`El tag "${album.cloudinaryTag}" no tiene imágenes en Cloudinary.`);
+      return;
+    }
+
+    album.photos = datos.resources.map(foto => ({
+      src: `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/v${foto.version}/${foto.public_id}.${foto.format}`,
+      caption: foto.context?.custom?.caption || foto.public_id,
+    }));
+
+    if (!album.coverImage && album.photos.length > 0) {
+      album.coverImage = album.photos[0].src;
+    }
+
+    console.log(`"${album.name}": ${album.photos.length} fotos cargadas (tag: "${album.cloudinaryTag}").`);
+
+  } catch (error) {
+    console.error(`No se pudieron cargar las fotos de "${album.name}" (tag: "${album.cloudinaryTag}"):`, error.message);
+  }
+}
+
+// =====================================================================
+// Referencias al DOM
+// =====================================================================
+const albumsGrid      = document.getElementById('albumsGrid');
+const gallerySection  = document.getElementById('gallerySection');
+const albumsSection   = document.querySelector('.albums-section');
+const photosGrid      = document.getElementById('photosGrid');
+const galleryTitle    = document.getElementById('galleryTitle');
+const btnBack         = document.getElementById('btnBack');
+const lightbox        = document.getElementById('lightbox');
+const lightboxImg     = document.getElementById('lightboxImg');
 const lightboxCaption = document.getElementById('lightboxCaption');
-const lightboxClose = document.getElementById('lightboxClose');
-const lightboxPrev = document.getElementById('lightboxPrev');
-const lightboxNext = document.getElementById('lightboxNext');
-const commentsModal = document.getElementById('commentsModal');
-const commentsModalClose = document.getElementById('commentsModalClose');
-const commentsModalTitle = document.getElementById('commentsModalTitle');
-const commentsModalList = document.getElementById('commentsModalList');
-const commentsModalForm = document.getElementById('commentsModalForm');
+const lightboxClose   = document.getElementById('lightboxClose');
+const lightboxPrev    = document.getElementById('lightboxPrev');
+const lightboxNext    = document.getElementById('lightboxNext');
+const commentsModal       = document.getElementById('commentsModal');
+const commentsModalClose  = document.getElementById('commentsModalClose');
+const commentsModalTitle  = document.getElementById('commentsModalTitle');
+const commentsModalList   = document.getElementById('commentsModalList');
+const commentsModalForm   = document.getElementById('commentsModalForm');
 const commentsModalAuthor = document.getElementById('commentsModalAuthor');
-const commentsModalText = document.getElementById('commentsModalText');
+const commentsModalText   = document.getElementById('commentsModalText');
 
 let currentAlbum = null;
 let currentPhotoIndex = 0;
 let currentZoom = 1;
-let panX = 0;
-let panY = 0;
+let panX = 0, panY = 0;
 let isPanning = false;
-let startPanX = 0;
-let startPanY = 0;
-let startClientX = 0;
-let startClientY = 0;
-const MIN_ZOOM = 1;
-const MAX_ZOOM = 3;
-const ZOOM_STEP = 0.25;
+let startPanX = 0, startPanY = 0;
+let startClientX = 0, startClientY = 0;
+const MIN_ZOOM = 1, MAX_ZOOM = 3, ZOOM_STEP = 0.25;
 const commentListenersByPhoto = {};
 let currentCommentsPhotoId = null;
 
+// =====================================================================
+// Zoom y paneo del lightbox
+// =====================================================================
 function applyZoom() {
   lightboxImg.style.transform = `translate(${panX}px, ${panY}px) scale(${currentZoom})`;
   lightboxImg.style.cursor = currentZoom > 1 ? (isPanning ? 'grabbing' : 'grab') : 'grab';
 }
 
+// =====================================================================
+// Firestore: comentarios y likes
+// =====================================================================
 function getSafePhotoId(photoSrc) {
-  // Crea un ID seguro para Firestore a partir de la URL
   return btoa(photoSrc).replace(/\//g, '_');
 }
 
 function setupCommentsListenerForPhoto(photoId, commentsListEl) {
   if (!window._firestoreDb || !window._firestoreLib) return;
-
   const db = window._firestoreDb;
-  const { collection, query, where, orderBy, onSnapshot } = window._firestoreLib;
+  const { collection, query, where, onSnapshot } = window._firestoreLib;
 
-  if (commentListenersByPhoto[photoId]) {
-    commentListenersByPhoto[photoId]();
-  }
+  if (commentListenersByPhoto[photoId]) commentListenersByPhoto[photoId]();
 
-  const commentsRef = collection(db, 'comments');
-  // Solo filtramos por photoId (sin orderBy) para no requerir índice compuesto en Firestore.
-  // Ordenamos los comentarios por fecha en el cliente.
-  const q = query(
-    commentsRef,
-    where('photoId', '==', photoId)
-  );
-
+  const q = query(collection(db, 'comments'), where('photoId', '==', photoId));
   const unsub = onSnapshot(q, (snapshot) => {
     commentsListEl.innerHTML = '';
-
-    // Ordenar por createdAt en el cliente
     const docs = [];
-    snapshot.forEach((doc) => docs.push(doc.data()));
+    snapshot.forEach(doc => docs.push(doc.data()));
     docs.sort((a, b) => {
       const ta = a.createdAt?.toDate ? a.createdAt.toDate().getTime() : 0;
       const tb = b.createdAt?.toDate ? b.createdAt.toDate().getTime() : 0;
       return ta - tb;
     });
-
-    docs.forEach((data) => {
-      const date = data.createdAt?.toDate
-        ? data.createdAt.toDate().toLocaleString()
-        : '';
+    docs.forEach(data => {
+      const date = data.createdAt?.toDate ? data.createdAt.toDate().toLocaleString() : '';
       const div = document.createElement('div');
       div.className = 'comment-item';
       div.innerHTML = `
@@ -149,7 +181,6 @@ function setupCommentsListenerForPhoto(photoId, commentsListEl) {
     });
     commentsListEl.scrollTop = commentsListEl.scrollHeight;
   });
-
   commentListenersByPhoto[photoId] = unsub;
 }
 
@@ -157,23 +188,14 @@ function setupLikesForPhoto(photoId, likeBtn, likeCountEl) {
   if (!window._firestoreDb || !window._firestoreLib) return;
   const db = window._firestoreDb;
   const { doc, setDoc, increment, onSnapshot } = window._firestoreLib;
-
   const likeDocRef = doc(db, 'likes', getSafePhotoId(photoId));
-
   onSnapshot(likeDocRef, (snap) => {
-    const data = snap.data();
-    const count = data?.count || 0;
-    if (likeCountEl) likeCountEl.textContent = count;
+    if (likeCountEl) likeCountEl.textContent = snap.data()?.count || 0;
   });
-
   likeBtn.addEventListener('click', async (e) => {
     e.stopPropagation();
     try {
-      await setDoc(
-        likeDocRef,
-        { count: increment(1) },
-        { merge: true }
-      );
+      await setDoc(likeDocRef, { count: increment(1) }, { merge: true });
     } catch (err) {
       console.error('Error incrementando likes', err);
     }
@@ -181,34 +203,23 @@ function setupLikesForPhoto(photoId, likeBtn, likeCountEl) {
 }
 
 function initPhotoInteractions(photoItemEl, photo) {
-  const photoId = photo.src;
-  const likeBtn = photoItemEl.querySelector('.btn-like');
+  const likeBtn     = photoItemEl.querySelector('.btn-like');
   const likeCountEl = photoItemEl.querySelector('.like-count');
   const commentsBtn = photoItemEl.querySelector('.btn-comments');
-
-  if (likeBtn && likeCountEl) {
-    setupLikesForPhoto(photoId, likeBtn, likeCountEl);
-  }
-
-  if (commentsBtn) {
-    commentsBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      openCommentsModal(photo);
-    });
-  }
+  if (likeBtn && likeCountEl) setupLikesForPhoto(photo.src, likeBtn, likeCountEl);
+  if (commentsBtn) commentsBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    openCommentsModal(photo);
+  });
 }
 
 function openCommentsModal(photo) {
-  if (!commentsModal || !commentsModalList) return;
-
+  if (!commentsModal) return;
   currentCommentsPhotoId = photo.src;
-  const safeId = getSafePhotoId(currentCommentsPhotoId);
-
   commentsModalTitle.textContent = photo.caption || 'Comentarios de la foto';
   commentsModalList.innerHTML = '';
   commentsModal.classList.add('active');
-
-  setupCommentsListenerForPhoto(safeId, commentsModalList);
+  setupCommentsListenerForPhoto(getSafePhotoId(currentCommentsPhotoId), commentsModalList);
 }
 
 function closeCommentsModal() {
@@ -217,12 +228,17 @@ function closeCommentsModal() {
   document.body.style.overflow = '';
 }
 
+// =====================================================================
+// Renderizado de álbumes y galería
+// =====================================================================
 function renderAlbums() {
   albumsGrid.innerHTML = ALBUMS.map((album) => `
     <article class="album-card" data-album-id="${album.id}" tabindex="0">
       <div class="album-cover">
         ${album.coverImage
-          ? `<img src="${album.coverImage}" alt="${escapeHtml(album.name)}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show')"><span class="album-icon album-icon-fallback" aria-hidden="true">${album.icon}</span>`
+          ? `<img src="${album.coverImage}" alt="${escapeHtml(album.name)}" loading="lazy"
+               onerror="this.style.display='none';this.nextElementSibling.classList.add('show')">
+             <span class="album-icon album-icon-fallback" aria-hidden="true">${album.icon}</span>`
           : `<span class="album-icon" aria-hidden="true">${album.icon}</span>`
         }
       </div>
@@ -236,10 +252,7 @@ function renderAlbums() {
   albumsGrid.querySelectorAll('.album-card').forEach((card) => {
     card.addEventListener('click', () => openAlbum(card.dataset.albumId));
     card.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        openAlbum(card.dataset.albumId);
-      }
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openAlbum(card.dataset.albumId); }
     });
   });
 }
@@ -251,14 +264,11 @@ function escapeHtml(text) {
 }
 
 function openAlbum(albumId) {
-  currentAlbum = ALBUMS.find((a) => a.id === albumId);
+  currentAlbum = ALBUMS.find(a => a.id === albumId);
   if (!currentAlbum) return;
-
   currentPhotoIndex = 0;
   galleryTitle.textContent = currentAlbum.name;
-  photosGrid.innerHTML = currentAlbum.photos
-    .map(
-      (photo, index) => `
+  photosGrid.innerHTML = currentAlbum.photos.map((photo, index) => `
     <div class="photo-item" data-index="${index}" tabindex="0">
       <img src="${photo.src}" alt="${escapeHtml(photo.caption || '')}" loading="lazy">
       <div class="photo-actions">
@@ -277,9 +287,7 @@ function openAlbum(albumId) {
         </form>
       </div>
     </div>
-  `
-    )
-    .join('');
+  `).join('');
 
   photosGrid.querySelectorAll('.photo-item').forEach((item) => {
     const index = parseInt(item.dataset.index, 10);
@@ -288,10 +296,7 @@ function openAlbum(albumId) {
     if (img) {
       img.addEventListener('click', () => openLightbox(index));
       img.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          openLightbox(index);
-        }
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(index); }
       });
     }
     initPhotoInteractions(item, photo);
@@ -308,6 +313,9 @@ function closeAlbum() {
   currentAlbum = null;
 }
 
+// =====================================================================
+// Lightbox
+// =====================================================================
 function openLightbox(index) {
   if (!currentAlbum || !currentAlbum.photos[index]) return;
   currentPhotoIndex = index;
@@ -315,9 +323,7 @@ function openLightbox(index) {
   lightboxImg.src = photo.src;
   lightboxImg.alt = photo.caption || '';
   lightboxCaption.textContent = photo.caption || '';
-  currentZoom = 1;
-  panX = 0;
-  panY = 0;
+  currentZoom = 1; panX = 0; panY = 0;
   applyZoom();
   lightbox.classList.add('active');
   lightboxClose.focus();
@@ -336,23 +342,15 @@ function showPhotoAtIndex(index) {
   lightboxImg.src = photo.src;
   lightboxImg.alt = photo.caption || '';
   lightboxCaption.textContent = photo.caption || '';
-  currentZoom = 1;
-  panX = 0;
-  panY = 0;
+  currentZoom = 1; panX = 0; panY = 0;
   applyZoom();
 }
 
-
 btnBack.addEventListener('click', closeAlbum);
-
 lightboxClose.addEventListener('click', closeLightbox);
 lightboxPrev.addEventListener('click', () => showPhotoAtIndex(currentPhotoIndex - 1));
 lightboxNext.addEventListener('click', () => showPhotoAtIndex(currentPhotoIndex + 1));
-
-lightbox.addEventListener('click', (e) => {
-  if (e.target === lightbox) closeLightbox();
-});
-
+lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
 document.addEventListener('keydown', (e) => {
   if (!lightbox.classList.contains('active')) return;
   if (e.key === 'Escape') closeLightbox();
@@ -360,123 +358,57 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowRight') showPhotoAtIndex(currentPhotoIndex + 1);
 });
 
-// Zoom con rueda del ratón y doble clic
 lightboxImg.addEventListener('wheel', (e) => {
   e.preventDefault();
   const rect = lightboxImg.getBoundingClientRect();
   const offsetX = e.clientX - (rect.left + rect.width / 2);
   const offsetY = e.clientY - (rect.top + rect.height / 2);
-
-  const zoomDirection = e.deltaY < 0 ? 1 : -1;
-  const newZoom = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, currentZoom + zoomDirection * ZOOM_STEP));
-
+  const dir = e.deltaY < 0 ? 1 : -1;
+  const newZoom = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, currentZoom + dir * ZOOM_STEP));
   if (newZoom !== currentZoom) {
-    const zoomFactor = newZoom / currentZoom;
-    panX = panX * zoomFactor + offsetX * (1 - zoomFactor);
-    panY = panY * zoomFactor + offsetY * (1 - zoomFactor);
+    const f = newZoom / currentZoom;
+    panX = panX * f + offsetX * (1 - f);
+    panY = panY * f + offsetY * (1 - f);
     currentZoom = newZoom;
   }
   applyZoom();
 });
 
-lightboxImg.addEventListener('dblclick', () => {
-  currentZoom = 1;
-  panX = 0;
-  panY = 0;
-  applyZoom();
-});
+lightboxImg.addEventListener('dblclick', () => { currentZoom = 1; panX = 0; panY = 0; applyZoom(); });
 
-// Arrastrar para mover la imagen cuando hay zoom
-function startPan(clientX, clientY) {
-  if (currentZoom <= 1) return;
-  isPanning = true;
-  startClientX = clientX;
-  startClientY = clientY;
-  startPanX = panX;
-  startPanY = panY;
-}
+function startPan(cx, cy) { if (currentZoom <= 1) return; isPanning = true; startClientX = cx; startClientY = cy; startPanX = panX; startPanY = panY; }
+function movePan(cx, cy)  { if (!isPanning) return; panX = startPanX + (cx - startClientX); panY = startPanY + (cy - startClientY); applyZoom(); }
+function endPan()         { isPanning = false; applyZoom(); }
 
-function movePan(clientX, clientY) {
-  if (!isPanning) return;
-  const dx = clientX - startClientX;
-  const dy = clientY - startClientY;
-  panX = startPanX + dx;
-  panY = startPanY + dy;
-  applyZoom();
-}
+lightboxImg.addEventListener('mousedown', (e) => { e.preventDefault(); startPan(e.clientX, e.clientY); });
+window.addEventListener('mousemove', (e) => movePan(e.clientX, e.clientY));
+window.addEventListener('mouseup', endPan);
+lightboxImg.addEventListener('touchstart', (e) => { if (e.touches.length === 1) startPan(e.touches[0].clientX, e.touches[0].clientY); }, { passive: false });
+lightboxImg.addEventListener('touchmove',  (e) => { if (e.touches.length === 1) { e.preventDefault(); movePan(e.touches[0].clientX, e.touches[0].clientY); } }, { passive: false });
+lightboxImg.addEventListener('touchend', endPan);
 
-function endPan() {
-  isPanning = false;
-  applyZoom();
-}
-
-lightboxImg.addEventListener('mousedown', (e) => {
-  e.preventDefault();
-  startPan(e.clientX, e.clientY);
-});
-
-window.addEventListener('mousemove', (e) => {
-  movePan(e.clientX, e.clientY);
-});
-
-window.addEventListener('mouseup', () => {
-  endPan();
-});
-
-// Soporte táctil (móvil)
-lightboxImg.addEventListener('touchstart', (e) => {
-  if (e.touches.length === 1) {
-    const touch = e.touches[0];
-    startPan(touch.clientX, touch.clientY);
-  }
-}, { passive: false });
-
-lightboxImg.addEventListener('touchmove', (e) => {
-  if (e.touches.length === 1) {
-    e.preventDefault();
-    const touch = e.touches[0];
-    movePan(touch.clientX, touch.clientY);
-  }
-}, { passive: false });
-
-lightboxImg.addEventListener('touchend', () => {
-  endPan();
-});
-
-if (commentsModalClose) {
-  commentsModalClose.addEventListener('click', closeCommentsModal);
-}
-
-if (commentsModal) {
-  commentsModal.addEventListener('click', (e) => {
-    if (e.target === commentsModal) {
-      closeCommentsModal();
-    }
-  });
-}
+// =====================================================================
+// Formulario de comentarios
+// =====================================================================
+if (commentsModalClose) commentsModalClose.addEventListener('click', closeCommentsModal);
+if (commentsModal) commentsModal.addEventListener('click', (e) => { if (e.target === commentsModal) closeCommentsModal(); });
 
 if (commentsModalForm) {
   commentsModalForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if (!window._firestoreDb || !window._firestoreLib) return;
-    if (!currentCommentsPhotoId) return;
+    if (!window._firestoreDb || !window._firestoreLib || !currentCommentsPhotoId) return;
     const db = window._firestoreDb;
     const { collection, addDoc, serverTimestamp } = window._firestoreLib;
-
-    const safeId = getSafePhotoId(currentCommentsPhotoId);
     const author = commentsModalAuthor.value.trim() || 'Anónimo';
-    const text = commentsModalText.value.trim();
+    const text   = commentsModalText.value.trim();
     if (!text) return;
-
     try {
       await addDoc(collection(db, 'comments'), {
-        photoId: safeId,
-        author,
-        text,
+        photoId: getSafePhotoId(currentCommentsPhotoId),
+        author, text,
         createdAt: serverTimestamp(),
       });
       commentsModalText.value = '';
-
     } catch (err) {
       console.error('Error guardando comentario', err);
       alert('No se pudo guardar el comentario. Intenta de nuevo.');
@@ -484,4 +416,7 @@ if (commentsModalForm) {
   });
 }
 
-renderAlbums();
+// =====================================================================
+// Arranque: carga tags de Cloudinary y renderiza todo
+// =====================================================================
+cargarAlbumsDesdeCloudinary();
