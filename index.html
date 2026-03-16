@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Álbum Familiar | Nuestros Recuerdos</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
   <div class="bg-pattern"></div>
   <div class="bg-gradient"></div>
@@ -30,7 +34,7 @@
       <div class="gallery-header">
         <button class="btn-back" id="btnBack" aria-label="Volver a álbumes">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M19 12H5M12 19l-7-7 7-7"/>
+            <path d="M19 12H5M12 19l-7-7 7-7" />
           </svg>
           Volver
         </button>
@@ -48,8 +52,24 @@
     <button class="lightbox-prev" id="lightboxPrev" aria-label="Foto anterior">&lsaquo;</button>
     <button class="lightbox-next" id="lightboxNext" aria-label="Siguiente foto">&rsaquo;</button>
     <div class="lightbox-content">
-      <img src="" alt="" id="lightboxImg">
+      <div class="lightbox-image-wrapper">
+        <img src="" alt="" id="lightboxImg">
+      </div>
       <p class="lightbox-caption" id="lightboxCaption"></p>
+    </div>
+  </div>
+
+  <!-- Ventana de comentarios -->
+  <div class="comments-modal" id="commentsModal" role="dialog" aria-modal="true" aria-label="Comentarios de la foto">
+    <div class="comments-modal-content">
+      <button class="comments-modal-close" id="commentsModalClose" aria-label="Cerrar comentarios">&times;</button>
+      <h3 class="comments-modal-title" id="commentsModalTitle">Comentarios</h3>
+      <div class="comments-modal-list" id="commentsModalList"></div>
+      <form class="comments-modal-form" id="commentsModalForm">
+        <input type="text" id="commentsModalAuthor" placeholder="Tu nombre (opcional)">
+        <textarea id="commentsModalText" placeholder="Escribe un comentario..." required></textarea>
+        <button type="submit">Comentar</button>
+      </form>
     </div>
   </div>
 
@@ -57,6 +77,54 @@
     <p>Hecho con &hearts; para la familia</p>
   </footer>
 
+  <!-- Firebase (Firestore) -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import {
+      getFirestore,
+      collection,
+      addDoc,
+      query,
+      where,
+      orderBy,
+      onSnapshot,
+      serverTimestamp,
+      doc,
+      setDoc,
+      increment
+    } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+    // TODO: Reemplaza estos valores con los de tu proyecto de Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyAmBEW0LU38UFDCX5YjezljkSVlqO9PnhA",
+      authDomain: "albumfamiliar-af.firebaseapp.com",
+      projectId: "albumfamiliar-af",
+      storageBucket: "albumfamiliar-af.firebasestorage.app",
+      messagingSenderId: "907129615753",
+      appId: "1:907129615753:web:dbb4cd9cfec1bf23491d58"
+    };
+
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Exponer para usar en javaScrip.js
+    window._firestoreDb = db;
+    window._firestoreLib = {
+      collection,
+      addDoc,
+      query,
+      where,
+      orderBy,
+      onSnapshot,
+      serverTimestamp,
+      doc,
+      setDoc,
+      increment
+    };
+  </script>
+
   <script src="js/javaScrip.js"></script>
 </body>
+
 </html>
