@@ -37,7 +37,7 @@ const ALBUMS = [
   // },
   {
     id: 'cerro',
-    name: 'cerroBorrego',
+    name: 'Cerro del Borrego',
     icon: '🎨',
     cloudinaryTag: 'cerro_borrego', // ← tag en Cloudinary
     coverImage: '',               // se asigna automáticamente
@@ -45,7 +45,7 @@ const ALBUMS = [
   },
   {
     id: 'zoo',
-    name: 'zoo Mexico',
+    name: 'Zoo de Mexico',
     icon: '🎨',
     cloudinaryTag: 'zoo_mex', // ← tag en Cloudinary
     coverImage: '',               // se asigna automáticamente
