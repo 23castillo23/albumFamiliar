@@ -115,16 +115,26 @@ function setupCommentsListenerForPhoto(photoId, commentsListEl) {
   }
 
   const commentsRef = collection(db, 'comments');
+  // Solo filtramos por photoId (sin orderBy) para no requerir índice compuesto en Firestore.
+  // Ordenamos los comentarios por fecha en el cliente.
   const q = query(
     commentsRef,
-    where('photoId', '==', photoId),
-    orderBy('createdAt', 'asc')
+    where('photoId', '==', photoId)
   );
 
   const unsub = onSnapshot(q, (snapshot) => {
     commentsListEl.innerHTML = '';
-    snapshot.forEach((doc) => {
-      const data = doc.data();
+
+    // Ordenar por createdAt en el cliente
+    const docs = [];
+    snapshot.forEach((doc) => docs.push(doc.data()));
+    docs.sort((a, b) => {
+      const ta = a.createdAt?.toDate ? a.createdAt.toDate().getTime() : 0;
+      const tb = b.createdAt?.toDate ? b.createdAt.toDate().getTime() : 0;
+      return ta - tb;
+    });
+
+    docs.forEach((data) => {
       const date = data.createdAt?.toDate
         ? data.createdAt.toDate().toLocaleString()
         : '';
@@ -467,17 +477,6 @@ if (commentsModalForm) {
       });
       commentsModalText.value = '';
 
-      // Añadir el comentario al instante a la lista (optimista)
-      const div = document.createElement('div');
-      div.className = 'comment-item';
-      const now = new Date().toLocaleString();
-      div.innerHTML = `
-        <div class="comment-item-author">${escapeHtml(author)}</div>
-        <div class="comment-item-text">${escapeHtml(text)}</div>
-        <div class="comment-item-date">${escapeHtml(now)}</div>
-      `;
-      commentsModalList.appendChild(div);
-      commentsModalList.scrollTop = commentsModalList.scrollHeight;
     } catch (err) {
       console.error('Error guardando comentario', err);
       alert('No se pudo guardar el comentario. Intenta de nuevo.');
